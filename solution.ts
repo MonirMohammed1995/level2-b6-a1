@@ -22,12 +22,14 @@ function getLength(value: string | any[]) {
 class Person {
   name: string;
   age: number;
+
   constructor(name: string, age: number) {
     this.name = name;
     this.age = age;
   }
+
   getDetails() {
-    return `Name: ${this.name}, Age: ${this.age}`;
+    return `'Name: ${this.name}, Age: ${this.age}'`;
   }
 }
 
@@ -66,11 +68,6 @@ function filterActiveUsers(users: User[]): User[] {
 
   return activeUsers;
 }
-const users = [
-  { id: 1, name: 'Rakib', email: 'rakib@example.com', isActive: true },
-  { id: 2, name: 'Asha', email: 'asha@example.com', isActive: false },
-  { id: 3, name: 'Rumi', email: 'rumi@example.com', isActive: true },
-];
 
 
 interface Book {
@@ -90,11 +87,41 @@ function printBookDetails(book: Book) {
   );
 }
 
-const myBook: Book = {
-  title: 'The Great Gatsby',
-  author: 'F. Scott Fitzgerald',
-  publishedYear: 1925,
-  isAvailable: false,
+
+function getUniqueValues(arr1: (number | string)[], arr2: (number | string)[]): (number | string)[] {
+  const combined: (number | string)[] = [];
+  
+  for (let i = 0; i < arr1.length; i++) {
+    if (!combined.includes(arr1[i])) {
+      combined.push(arr1[i]);
+    }
+  }
+
+  for (let i = 0; i < arr2.length; i++) {
+    if (!combined.includes(arr2[i])) {
+      combined.push(arr2[i]);
+    }
+  }
+
+  return combined;
+}
+
+
+type Product = {
+  name: string;
+  price: number;
+  quantity: number;
+  discount?: number;
 };
 
-printBookDetails(myBook);
+function calculateTotalPrice(products: Product[]): number {
+  return products.reduce((total, product) => {
+    let productPrice = product.price * product.quantity;
+
+    if (product.discount) {
+      productPrice = productPrice - (productPrice * product.discount) / 100;
+    }
+
+    return total + productPrice;
+  }, 0);
+}
